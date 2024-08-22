@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["node", "webpack-env"]
+  },
+  "include": ["src/**/*", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}

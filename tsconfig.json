@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "ES6", //ES6 문법을 사용합니다. 현대적이면서도 대부분의 브라우저와 호환됩니다.
     "lib": ["DOM", "DOM.Iterable", "ESNext"], //브라우저 DOM API와 최신 ECMAScript 기능을 사용할 수 있게 합니다.
-    "module": "ESNext", //최신 모듈 시스템을 사용합니다. Webpack이 이를 처리할 수 있습니다.
+    // "module": "ESNext", //최신 모듈 시스템을 사용합니다. Webpack이 이를 처리할 수 있습니다.
+    "module": "CommonJS",
     "moduleResolution": "node", //Node.js 스타일의 모듈 해결 방식을 사용합니다.
     "jsx": "react-jsx", //React 17 이상에서 권장되는 새로운 JSX 변환을 사용합니다.
     "strict": true, //모든 엄격한 타입-체킹 옵션을 활성화합니다. 이는 더 안전한 코드를 작성하는 데 도움이 됩니다.
