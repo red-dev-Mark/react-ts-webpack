@@ -102,8 +102,8 @@
 // ************** 아래 내용은 webpack.confing.ts로 마이그레이션
 // ************************************************************
 
-import { Configuration as WebpackConfiguration } from 'webpack';
-import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+import type { Configuration as WebpackConfiguration } from 'webpack';
+import type { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -113,7 +113,7 @@ interface Configuration extends WebpackConfiguration {
 }
 
 const config: Configuration = {
-  // ts로 마이그레이션 후 빌드 시 devServer오류로 webpack-dev-server
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: './src/main.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -157,8 +157,72 @@ const config: Configuration = {
       directory: path.join(__dirname, 'public'),
     },
     port: 5731,
+    historyApiFallback: true,
   },
+  devtool:
+    process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
 };
 
-// export default config;
 module.exports = config;
+
+// import path from 'path';
+// import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import { Configuration as WebpackConfiguration } from 'webpack';
+// import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+
+// interface Configuration extends WebpackConfiguration {
+//   devServer?: WebpackDevServerConfiguration;
+// }
+
+// const config: Configuration = {
+//   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+//   entry: './src/main.tsx',
+//   output: {
+//     path: path.resolve(__dirname, 'dist'),
+//     filename: 'js/[name].[contenthash].js',
+//     publicPath: '/',
+//     clean: true,
+//   },
+//   resolve: {
+//     extensions: ['.tsx', '.ts', '.js', '.jsx'],
+//   },
+//   module: {
+//     rules: [
+//       {
+//         test: /\.(ts|tsx|js|jsx)$/,
+//         use: {
+//           loader: 'babel-loader',
+//           options: {
+//             presets: [
+//               '@babel/preset-env',
+//               '@babel/preset-react',
+//               '@babel/preset-typescript',
+//             ],
+//           },
+//         },
+//         exclude: /node_modules/,
+//       },
+//       {
+//         test: /\.s?css$/,
+//         use: ['style-loader', 'css-loader'],
+//       },
+//     ],
+//   },
+//   plugins: [
+//     new HtmlWebpackPlugin({
+//       template: './index.html',
+//       filename: 'index.html',
+//     }),
+//   ],
+//   devServer: {
+//     static: {
+//       directory: path.join(__dirname, 'public'),
+//     },
+//     port: 5731,
+//     historyApiFallback: true,
+//   },
+//   devtool:
+//     process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
+// };
+
+// export default config;
